@@ -1,0 +1,5 @@
+# .gitignore
+
+hugs-1
+hugs-2
+.DS_Store
