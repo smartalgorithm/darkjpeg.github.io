@@ -349,7 +349,7 @@ probeContainerSize = (idata, size, cbm, cb) -> async ->
 
 probeContainerJoin = (obj, safe, size, cbm, cb) -> async ->
     if obj instanceof ImageData
-        return cb data
+        return cb obj
     if obj == 'rand'
         for i in [4, 2, 0]
             return cb fail "Aborted by user" if @aborted

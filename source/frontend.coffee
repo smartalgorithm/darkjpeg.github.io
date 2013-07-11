@@ -300,7 +300,6 @@ controlInit = (cb) ->
         setTimeout(pass, 100) && $('#control').hide().fadeIn(400)
 
 controlProgress = (dict) ->
-    console.log dict
     text = dict.name ? dict.type
     prog = Math.min(Math.max(dict.progress ? 0, 18), 100) * 4.41 | 0
     return $('#progress').html(text) if dict.type != 'progress'
@@ -316,7 +315,7 @@ controlProcess = ->
         err = trace(url, true)?.error ? 'Some error occured'
         $('h3').stop().css('opacity', 1).html("Oops! #{err} :(")
         document.onclick = -> controlInit controlProcess
-    safari = /Safari/.test navigator.userAgent
+    safari = /^(?!.*Chrom).*Safari.*$/.test navigator.userAgent
     dict = action: global.optAction, pass: global.optPass, \
            method: global.optMethod, safe: global.optSafe
     dict.data = global.fileData if global.optAction == 'decode'
