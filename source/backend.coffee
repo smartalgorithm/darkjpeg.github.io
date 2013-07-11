@@ -249,10 +249,10 @@ downloadError = (code) ->
     switch code
         when  -1 then "Download aborted by user"
         when   0 then "Cross-domain request error"
-        when 403 then "Over Google App Engine quota"
         when 404 then "File not found"
         when 405 then "JPEG only supported"
         when 406 then "Bad URL specified"
+        when 503 then "Over Google App Engine quota"
         else "Download error"
 
 downloadWiki = (hw, cbm, cb) -> async ->
@@ -286,9 +286,8 @@ downloadWiki = (hw, cbm, cb) -> async ->
     return cb fail "Could not find anything on Wikimedia"
 
 downloadFile = (url, cbm, cb) -> async ->
-    urls = [#'http://hugs-1.appspot.com/',
-            #'http://hugs-2.appspot.com/',
-            'http://localhost:8080/']
+    urls = ['http://hugs-1.appspot.com/',
+            'http://hugs-2.appspot.com/']
     return cb fail "Bad URL", url if not okay url
     for x, i in urls by -1
         urls[i] += btoa(url)
