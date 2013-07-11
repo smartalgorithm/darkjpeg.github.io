@@ -32,7 +32,7 @@ controlAbort = (event) ->
 
 controlDrop = (event) ->
     eventVoid event
-    return if $('.ctr-button').text() != '+'
+    return if global.fileData
     dataTransfer = event.dataTransfer
     if dataTransfer?.files
         for file in dataTransfer.files
@@ -253,16 +253,18 @@ controlInit = (cb) ->
         controlPreview global.fileData, 'prvData'
         pass = -> controlInput 'password', 'Enter password'
         done = ->
-            localStorage.setItem 'action', global.optAction
             localStorage.setItem 'method', global.optMethod
             localStorage.setItem 'wikisafe', global.optSafe
             localStorage.setItem 'container', \
                 if global.fileJpeg then 'rand' else global.optJpeg
+            localStorage.setItem 'action', global.optAction \
+                if global.optData != 'url'
             $('h3').html(''); global.optPass = $('input').val() \
                 if $('input').attr('type') == 'password'
             return $('h3').css('opacity', 0) \
                 .off('click').stop().animate(opacity: 1, 400) \
-                .html('Oops! Empty password not allowed :(') \
+                .html('Empty password not allowed').delay(1000)
+                .animate(opacity: 0, 400) \
                 if !global.optPass && global.optMethod != 'join'
             $('#control').fadeOut(400).queue ->
                 controlDown target: global.dropTarg
@@ -272,13 +274,13 @@ controlInit = (cb) ->
                 controlInput 'text'; global.prvJpeg = null
                 $('input').prop('disabled', true)
                 cb $('<div>').prop('id', 'progress').appendTo('form')
+        global.optAction = localStorage.getItem('action') ? 'encode'
+        global.optAction = 'decode' if not global.fileData
         global.optData = global.fileData && 'file' || 'url'
         global.fileData = global.fileData || $('input').val()
         global.optMethod = localStorage.getItem('method') ? 'auto'
         global.optJpeg = localStorage.getItem('container') ? 'rand'
         global.optSafe = localStorage.getItem('wikisafe') ? 'true'
-        global.optAction = localStorage.getItem('action') ? \
-            (global.fileData && 'encode' || 'decode')
         global.optSafe = global.optSafe == 'true'
         controlAdd 'ctr-color-1 ctr-start', global.optAction, controlAction
         controlAdd 'ctr-from-1 ctr-to-2', null, null
@@ -312,7 +314,7 @@ controlProcess = ->
             .animate(opacity: 1, 400).appendTo('section')
     error = (url) ->
         err = trace(url, true)?.error ? 'Some error occured'
-        $('h3').html('Oops! ' + err + ' :(')
+        $('h3').stop().css('opacity', 1).html("Oops! #{err} :(")
         document.onclick = -> controlInit controlProcess
     safari = /Safari/.test navigator.userAgent
     dict = action: global.optAction, pass: global.optPass, \
