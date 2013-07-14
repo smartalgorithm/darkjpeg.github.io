@@ -703,8 +703,6 @@ var JPEGEncoder = function (method, image, width, height)
             writeWord(0xFFD9); //EOI
         }
 
-        //throw new Exception('encode', "Test exception");
-
         var result = new Uint8Array(byteout),
             duration = new Date().getTime() - timeStart;
         
