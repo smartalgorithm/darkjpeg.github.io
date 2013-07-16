@@ -56,7 +56,8 @@ function decode(data) {
 			worker.postMessage({
 				action: 'decode',
 				method: 'auto',
-				buffer: this.response}, [this.response]);
+				buffer: this.response
+			}, [this.response]);
 	};
 	
 	xhr.onerror = function(event) {

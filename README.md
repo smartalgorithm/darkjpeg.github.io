@@ -14,10 +14,10 @@ Main features:
 
 #### Additional info
 
-- [Methods](https://github.com/darkjpeg/darkjpeg.github.io/wiki/darkjpeg)
-- [RarJPEG](https://github.com/darkjpeg/darkjpeg.github.io/wiki/darkjpeg#rarjpeg-support)
-- [Server-less](https://github.com/darkjpeg/darkjpeg.github.io/wiki/darkjpeg#server-less)
-- [HUGS](https://github.com/darkjpeg/darkjpeg.github.io/wiki/darkjpeg#hugs-support)
-- [Development](https://github.com/darkjpeg/darkjpeg.github.io/wiki/darkjpeg#developers-guide)
-- [Thanks](https://github.com/darkjpeg/darkjpeg.github.io/wiki/darkjpeg#thanks-to)
-- [License](https://github.com/darkjpeg/darkjpeg.github.io/wiki/darkjpeg#license)
+- [Methods](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md)
+- [RarJPEG](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#rarjpeg-support)
+- [Server-less](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#server-less)
+- [HUGS](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#hugs-support)
+- [Development](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#developers-guide)
+- [Thanks](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#thanks-to)
+- [License](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#license)
