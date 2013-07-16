@@ -26,7 +26,7 @@ var Exception = function (name, message)
 {
     this.name = name;
     this.message = message;
-    this.prototype = new Error();
+    this.prototype = new Exception();
     this.prototype.constructor = this;
 }
 
@@ -34,7 +34,6 @@ this.onmessage = function (event)
 {
     try
     {
-        this.aborted = false;
         switch (event.data.action)
         {
         case "encrypt":

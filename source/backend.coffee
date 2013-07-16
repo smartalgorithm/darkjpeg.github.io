@@ -94,7 +94,7 @@ dataURLToImage = (url, cb) -> async ->
 blobToDataURL = (blob, legacy, cb) -> async ->
     return cb fail "Bad blob", blob if not okay blob
     URL = window.URL || window.webkitURL
-    return cb URL.createObjectURL blob if not legacy
+    return cb URL.createObjectURL blob if URL and not legacy
     reader = new FileReader
     reader.onload = -> cb @result
     reader.readAsDataURL blob
@@ -144,7 +144,7 @@ invokeJSONP = (json, cbm, cb) -> async ->
     script.type = 'text/javascript'
     script.src = 'http://commons.wikimedia.org/w/api.php?' +
     'action=query&format=json&callback=wikicb.func&' + $.param(json)
-    cbm? type: 'jsonp', url: script.src
+    cbm? type: 'wiki', url: script.src
     $('body').append(script)
     
 invokeXHR = (url, cbm, cb) ->
@@ -271,7 +271,7 @@ downloadError = (code) ->
         when  -1 then "Download aborted by user"
         when   0 then "Cross-domain request error"
         when 404 then "File not found"
-        when 405 then "JPEG only supported"
+        when 405 then "DarkJPEG only supported"
         when 406 then "Bad URL specified"
         when 503 then "Over Google App Engine quota"
         else "Download error"
@@ -434,7 +434,7 @@ processRequest = (dict, cbm, cb) ->
     if dict.hide
         if dict.hide instanceof Blob
             await blobToArrayBuffer dict.hide, defer hide
-        else return cb fail "Encode by URL disabled", dict.hide
+        else return cb fail "Encoding by URL not supported", dict.hide
         return cb fail "Bad data", hide if not okay hide
     if dict.action == 'encode'
         await darkExec action: 'encrypt', name: dict.hide.name, \

@@ -328,7 +328,7 @@ controlProgress = (dict) ->
 
 controlProcess = ->
     done = (image, blob) ->
-        str = blob.name + '<br>' + (blob.size >> 10) + ' Kb'
+        str = blob.name + '<br>' + ((blob.size >> 10) + 1) + ' Kb'
         $('<figure>').append(image).append($('<figcaption>').html(str))
             .click(-> dataURLSave url, blob.name).css(opacity: 0)
             .animate(opacity: 1, 400).appendTo('section')

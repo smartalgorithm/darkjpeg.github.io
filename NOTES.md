@@ -1,4 +1,4 @@
-Darkjpeg is a new generation open source steganography web service. It is supposed to serve people's needs for the freedom of communication even in those countries which break human rights by forcing some kind of Internet censorship or even denying to use cryptography by law. The service uses strong steganography methods to hide the very fact of hiding data among with strong cryptography methods to protect the data of being read by non-trusted groups of people.
+DarkJPEG is a new generation open source steganography web service. It is supposed to serve people's needs for the freedom of communication even in those countries which break human rights by forcing some kind of Internet censorship or even denying to use cryptography by law. The service uses strong steganography methods to hide the very fact of hiding data among with strong cryptography methods to protect the data of being read by non-trusted groups of people.
 
 Main features:
 - SHA3 key generation;
@@ -10,7 +10,7 @@ Main features:
 - MIT License.
 
 Supported encapsulation methods:
-- auto, which is used by default and suitable for most cases (note: data is encoded with the join method);
+- auto, which is used by default and suitable for most cases (note: data is being encoded with the join method);
 - join, which simply concatenates a container and encrypted data together producing a valid JPEG on the output and giving infinite container capacity among with moderate security;
 - steg, which uses strong steganography algorithms allowing to inject encrypted data directly into JPEG discrete cosine transform coefficients and giving about 20% of the container size capacity and the maximal security level, please note this is the only method to be used in the case of hiding some serious content.
 
@@ -51,8 +51,8 @@ The answers should be processed by the worker.onmessage function and look like t
 
 - Emily Stark, Mike Hamburg, Dan Boneh, Stanford University for their BSD-licensed JavaScript AES256 implementation;
 - Chris Drost for his public domain implementation of SHA3 Keccak;
-- Yury Delendik, Brendan Dahl, notmasteryet for their amazing Apache licensed JavaScript JPEG decoder;
-- Andreas Ritter for his Apache licensed JavaScript JPEG encoder port;
+- Yury Delendik, Brendan Dahl, notmasteryet for their Apache licensed JavaScript JPEG decoder;
+- Andreas Ritter for his amazing Apache licensed JavaScript JPEG encoder port;
 - Dan Gries for his examples of very pretty fractal linear gradients drawings;
 - Brsev for the gear icon (a part of his CC BY-NC-ND licensed Token Dark icon pack);
 - Anoxia-Photography for the Limbo photo used as a background.
