@@ -1,3 +1,6 @@
+darkjpeg
+========
+
 DarkJPEG is a new generation open source steganography web service. It is supposed to serve people's needs for the freedom of communication even in those countries which break human rights by forcing some kind of Internet censorship or even denying to use cryptography by law. The service uses strong steganography methods to hide the very fact of hiding data among with strong cryptography methods to protect the data of being read by non-trusted groups of people.
 
 Main features:
