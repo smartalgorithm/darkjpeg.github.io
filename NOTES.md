@@ -32,7 +32,7 @@ It was decided not to allow one to use an empty password for the security reason
 
 ### Deniable encryption
 
-Data can be injected in a container in three ways: using the join method, using the steg method and using them both simultaneously. This gives an ability to join fake secret data to the already encoded by the steg method image containing the real secret content. Deniable encryption allows an encrypted message to be decrypted to different sensible plaintexts, depending on the key used. This allows one to have plausible deniability if compelled to give up the encryption key.
+Data can be injected in a container in three ways: using the join method, using the steg method and using them both simultaneously. This gives an ability to join fake secret data to an already encoded by the steg method image containing real secret content. Deniable encryption allows an encrypted message to be decrypted to different sensible plaintexts, depending on the key used. This allows one to have plausible deniability if compelled to give up the encryption key.
 
 ### Server-less
 
@@ -45,24 +45,28 @@ This service allows to provide a URL instead of selecting or drag'n'dropping a f
 ### Developer's guide
 
 The service core is built as an asynchronous web-worker dark.js. It can deal with the following json-requests:
-- {action: 'encrypt', name: 'filename.ext', pass: 'password', buffer: ArrayBuffer}
-- {action: 'encode', method: 'auto|join|steg', width: ImageData.width, height: ImageData.height, buffer: ImageData}
-- {action: 'decode', method: 'auto|join|steg', buffer: ArrayBuffer}
-- {action: 'decrypt', pass: 'password'}
+```
+- {action: "encrypt", name: "filename.ext", pass: "password", buffer: ArrayBuffer}
+- {action: "encode", method: "auto|join|steg", width: ImageData.width, height: ImageData.height, buffer: ImageData}
+- {action: "decode", method: "auto|join|steg", buffer: ArrayBuffer}
+- {action: "decrypt", pass: "password"}
+```
 
 The answers should be processed by the worker.onmessage function and look like this:
-- {type: 'encrypt', size: encrypted}
-- {type: 'encode', time: duration, isize: result.length, csize: encoded.length, rate: 100*isize/csize, buffer: ArrayBuffer}
-- {type: 'decode', time: duration, isize: result.length, csize: decoded.length, rate: 100*isize/csize}
-- {type: 'decrypt', name: 'filename.ext', buffer: ArrayBuffer}
-- {type: 'progress', name: 'encrypt|decrypt|encode|decode', progress: percent}
-- {type: 'error', name: 'encrypt|decrypt|encode|decode', msg: message}
+```
+- {type: "encrypt", size: encrypted}
+- {type: "encode", time: duration, isize: res.length, csize: enc.length, rate: 100*isize/csize, buffer: ArrayBuffer}
+- {type: "decode", time: duration, isize: res.length, csize: dec.length, rate: 100*isize/csize}
+- {type: "decrypt", name: "filename.ext", buffer: ArrayBuffer}
+- {type: "progress", name: "encrypt|decrypt|encode|decode", progress: percent}
+- {type: "error", name: "encrypt|decrypt|encode|decode", msg: message}
+```
 
 DarkJPEG file format:
 ```
-- container: [ JPEG <+> encoded data ] | [ JPEG ][ encoded data ];
+- container: [ JPEG <+> encoded data ] or [ JPEG ][ encoded data ];
 - encoded:   [ 16-bit encryption salt ][ AES256 encrypted data ][ 0xFFD9 ];
-- encrypted: [ 0x3141593 ][ 32-bit file size ][ 16-bit file name length ][ UTF-16 file name ][ DATA ][ 256-bit zero padding ].
+- encrypted: [ 0x3141593 ][ 32-bit file size ][ 16-bit file name length ][ UTF-16 file name ][ DATA ][ zero padding ].
 ```
 
 ### See also

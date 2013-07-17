@@ -16,7 +16,7 @@ Main features:
 
 - [Components](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#components)
 - [RarJPEG](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#rarjpeg-support)
-- [Denials](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#deniable-encryption)
+- [Denial](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#deniable-encryption)
 - [Server-less](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#server-less)
 - [App Engine](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#app-engine-support)
 - [Development](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#developers-guide)
