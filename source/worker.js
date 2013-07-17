@@ -26,7 +26,7 @@ var Exception = function (name, message)
 {
     this.name = name;
     this.message = message;
-    this.prototype = new Exception();
+    this.prototype = new Error();
     this.prototype.constructor = this;
 }
 

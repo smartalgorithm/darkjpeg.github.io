@@ -354,3 +354,12 @@ controlProcess = ->
 testBrowser '//browser-update.org/update.html'
 jQuery.event.props.push 'dataTransfer'
 controlInit controlProcess
+
+console.log """
+            Privacy is necessary for an open society in the electronic age.
+            ... We cannot expect governments, corporations, or other large,
+            faceless organizations to grant us privacy ... We  must  defend
+            our own privacy if we expect to have any. ... Cypherpunks write
+            code.  We know  that someone has to  write  software  to defend
+            privacy, and ... we're going to write it. (c) Eric Hughes, 1993
+            """

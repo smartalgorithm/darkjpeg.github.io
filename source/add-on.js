@@ -2,8 +2,8 @@
 function mime(name) {
 	if (!name) return 'application/octet-stream';
 	switch (name.split('.').pop().toLowerCase()){
-		case 'txt': return 'text/plain';
 		case 'gif': return 'image/gif';
+		case 'png': return 'image/png';
 		case 'jpg': case 'jpeg': return 'image/jpeg';
 		default: return 'application/octet-stream';
 	}

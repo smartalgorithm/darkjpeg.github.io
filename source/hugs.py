@@ -24,7 +24,7 @@ import webapp2
 import urllib2
 import base64
 
-cors = '*'
+cors = 'http://darkjpeg.github.io'
 hugs = '<p style="font: 120px Verdana;">\(^_^)/</p>'
 size = 64 * 1024
 
@@ -39,7 +39,7 @@ class ProxyHandler(webapp2.RequestHandler):
             req = urllib2.urlopen(url)
 
             chunk = req.read(10)
-            if not chunk or chunk[6:10] != 'JFIF':
+            if not chunk or (chunk[6:10] != 'JFIF' and chunk[6:10] != 'Exif'):
                 self.response.status = '405 Method Not Allowed'
                 self.response.headers.add('Access-Control-Allow-Origin', cors)
                 self.response.write(hugs)

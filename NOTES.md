@@ -12,6 +12,8 @@ Main features:
 - Anonymity and privacy;
 - MIT License.
 
+### Components
+
 Supported encapsulation methods:
 - auto, which is used by default and suitable for most cases (note: data is being encoded with the join method);
 - join, which simply concatenates a container and encrypted data together producing a valid JPEG on the output and giving infinite container capacity among with moderate security;
@@ -22,15 +24,21 @@ Supported container types:
 - grad, which generates a random image using gradient algorithms;
 - image, which allows to use one's own image as a container.
 
+Note: unsafe option can be used to reduce output file size and prevent some additional container transformations at the cost of security but that could be still useful on slow computers.
+
 ### RarJPEG support
 
-It was decided not to allow one to use an empty password for the security reasons. However, this could be done using the join method producing a concatenation of two files together. This gives an ability to join e.g. a rar-archive to any JPEG container which then could be simply opened by any archive software without any need in this service. Note: every encoded file has an additional header in the beginning and JPEG EOI (0xFFD9) word at the end in the reasons of security.
+It was decided not to allow one to use an empty password for the security reasons. However, this could be done using the join method producing a concatenation of two files together. This gives an ability to join e.g. a rar-archive to any JPEG container which then could be simply opened by any archive software without using this service. Note: every encoded file has an additional header in the beginning and JPEG EOI (0xFFD9) word at the end in the reasons of security.
+
+### Deniable encryption
+
+Data can be injected in a container in three ways: using the join method, using the steg method and using them both simultaneously. This gives an ability to join fake secret data to the already encoded by the steg method image containing the real secret content. Deniable encryption allows an encrypted message to be decrypted to different sensible plaintexts, depending on the key used. This allows one to have plausible deniability if compelled to give up the encryption key.
 
 ### Server-less
 
-No server is needed to encode or decode files at all. All computations are being run on the client giving additional performance and privacy, so the service never tracks any requests, therefore nobody could possibly know about one's actions what gives one maximum anonymity and security.
+No server is needed to encode or decode files at all. All computations are being run on the client giving additional performance and privacy, so the service never tracks any requests and nobody could possibly know about one's actions what gives the one maximum anonymity and security.
 
-### HUGS support
+### App Engine support
 
 This service allows to provide a URL instead of selecting or drag'n'dropping a file. But note that there is a web-restriction named CORS which denies the service to download data directly from other domains. So there are two proxy services (hugs-01 and hugs-02) running on the Google App Engine platform. They are an optional part allowing not to download files manually but with the HUGS support. Note: there's a daily bandwidth quota of 2048 MiB had been set by Google and since the service out of it, a URL cannot be used instead of a file. In that case please mention there is a special browser extension available which gives an ability to decode images directly on any website just by clicking a context menu item on it.
 
@@ -50,6 +58,21 @@ The answers should be processed by the worker.onmessage function and look like t
 - {type: 'progress', name: 'encrypt|decrypt|encode|decode', progress: percent}
 - {type: 'error', name: 'encrypt|decrypt|encode|decode', msg: message}
 
+DarkJPEG file format:
+```
+- container: [ JPEG <+> encoded data ] | [ JPEG ][ encoded data ];
+- encoded:   [ 16-bit encryption salt ][ AES256 encrypted data ][ 0xFFD9 ];
+- encrypted: [ 0x3141593 ][ 32-bit file size ][ 16-bit file name length ][ UTF-16 file name ][ DATA ][ 256-bit zero padding ].
+```
+
+### See also
+
+- [Cryptography](http://en.wikipedia.org/wiki/Cryptography);
+- [Steganography](http://en.wikipedia.org/wiki/Steganography);
+- [Crypto-anarchism](http://en.wikipedia.org/wiki/Crypto-anarchism);
+- [Plausible deniability](http://en.wikipedia.org/wiki/Plausible_deniability);
+- [A Cypherpunk's Manifesto](http://www.activism.net/cypherpunk/manifesto.html).
+
 ### Thanks to
 
 - Emily Stark, Mike Hamburg, Dan Boneh, Stanford University for their BSD-licensed JavaScript AES256 implementation;
@@ -58,7 +81,7 @@ The answers should be processed by the worker.onmessage function and look like t
 - Andreas Ritter for his amazing Apache licensed JavaScript JPEG encoder port;
 - Dan Gries for his examples of very pretty fractal linear gradients drawings;
 - Brsev for the gear icon (a part of his CC BY-NC-ND licensed Token Dark icon pack);
-- Anoxia-Photography for the Limbo photo used as a background.
+- Fabrizio Panattoni for his public domain Premade Background 019.
 
 ### License
 

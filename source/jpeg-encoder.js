@@ -718,10 +718,38 @@ var JPEGEncoder = function (method, image, width, height)
         }, [result.buffer]);
     }
 
+    function jpegAppend()
+    {
+        var timeStart = new Date().getTime(),
+            idata = new Uint8Array(image),
+            size = idata.length + (ssize >> 3) + 2,
+            result = new Uint8Array(size);
+
+        for (var i = 0; i < idata.length; i++)
+            result[i] = idata[i];
+
+        for (var i = 0; i < (ssize >> 3); i++)
+            result[idata.length + i] = sdata[i];
+
+        result[size - 2] = 0xFF; // EOI
+        result[size - 1] = 0xD9;
+
+        postMessage({
+            type:  'encode',
+            time:   new Date().getTime() - timeStart,
+            isize:  image.length,
+            csize:  sbits / 8.0,
+            rate:   12.5 * sbits / result.length,
+            buffer: result.buffer,
+        }, [result.buffer]);
+    }
+
     parseMethod();
     initHuffmanTbl();
     initCategoryNumber();
     initRGBYUVTable();
     initQuantTables();
-    jpegEncode();
+
+    if (image instanceof ArrayBuffer)
+        jpegAppend(); else jpegEncode();
 }

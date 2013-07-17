@@ -14,10 +14,12 @@ Main features:
 
 #### Additional info
 
-- [Methods](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md)
+- [Components](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#components)
 - [RarJPEG](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#rarjpeg-support)
+- [Denials](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#deniable-encryption)
 - [Server-less](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#server-less)
-- [HUGS](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#hugs-support)
+- [App Engine](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#app-engine-support)
 - [Development](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#developers-guide)
+- [See also](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#see-also)
 - [Thanks](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#thanks-to)
 - [License](https://github.com/darkjpeg/darkjpeg.github.io/blob/master/NOTES.md#license)

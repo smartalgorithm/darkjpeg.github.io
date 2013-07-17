@@ -128,7 +128,6 @@ objectToImageData = (obj, cb) ->
 
 objectToMimeType = (obj) ->
     switch obj?.name?.split('.').pop().toLowerCase()
-        when 'txt' then 'text/plain'
         when 'gif' then 'image/gif'
         when 'png' then 'image/png'
         when 'jpg', 'jpeg' then 'image/jpeg'
@@ -271,7 +270,7 @@ downloadError = (code) ->
         when  -1 then "Download aborted by user"
         when   0 then "Cross-domain request error"
         when 404 then "File not found"
-        when 405 then "DarkJPEG only supported"
+        when 405 then "This is not JPEG"
         when 406 then "Bad URL specified"
         when 503 then "Over Google App Engine quota"
         else "Download error"
@@ -310,6 +309,7 @@ downloadFile = (url, cbm, cb) -> async ->
     urls = ['http://hugs-1.appspot.com/',
             'http://hugs-2.appspot.com/']
     return cb fail "Bad URL", url if not okay url
+    url = 'http://' + url if not /:\/\//.test(url)
     for x, i in urls by -1
         urls[i] += btoa(url)
     for x, i in urls by -1
@@ -369,8 +369,9 @@ probeContainerSize = (idata, size, cbm, cb) -> async ->
     imageDataToImageData idata, w, h, cb
 
 probeContainerJoin = (obj, safe, size, cbm, cb) -> async ->
-    if obj instanceof ImageData
-        return cb obj
+    if obj instanceof ImageData or
+       obj instanceof ArrayBuffer
+        obj.width ?= 0; obj.height ?= 0; return cb obj
     if obj == 'rand'
         for i in [4, 2, 0]
             return cb fail "Aborted by user" if @aborted
@@ -427,7 +428,7 @@ processRequest = (dict, cbm, cb) ->
         if data not instanceof Blob
             await downloadFile data, cbm, defer data
             data = objectToBlob data    
-        if dict.action == 'encode'
+        if dict.action == 'encode' && dict.method == 'steg'
             await blobToImageData data, defer data
         else await blobToArrayBuffer data, defer data
         return cb fail "Bad data", data if not okay data
