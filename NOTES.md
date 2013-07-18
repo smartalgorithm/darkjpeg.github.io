@@ -46,9 +46,10 @@ This service allows to provide a URL instead of selecting or drag'n'dropping a f
 
 The service core is built as an asynchronous web-worker dark.js. It can deal with the following json-requests:
 ```
-- {action: "encrypt", name: "filename.ext", pass: "password", buffer: ArrayBuffer}
-- {action: "encode", method: "auto|join|steg", width: ImageData.width, height: ImageData.height, buffer: ImageData}
-- {action: "decode", method: "auto|join|steg", buffer: ArrayBuffer}
+- {action: "encrypt", name: "file.ext", pass: "password", buffer: ArrayBuffer}
+- {action: "encode", method: "join", width: 0, height: 0, buffer: ArrayBuffer}
+- {action: "encode", method: "auto | join | steg", width: image.width, height: image.height, buffer: ImageData}
+- {action: "decode", method: "auto | join |steg", buffer: ArrayBuffer}
 - {action: "decrypt", pass: "password"}
 ```
 
@@ -57,16 +58,16 @@ The answers should be processed by the worker.onmessage function and look like t
 - {type: "encrypt", size: encrypted}
 - {type: "encode", time: duration, isize: res.length, csize: enc.length, rate: 100*isize/csize, buffer: ArrayBuffer}
 - {type: "decode", time: duration, isize: res.length, csize: dec.length, rate: 100*isize/csize}
-- {type: "decrypt", name: "filename.ext", buffer: ArrayBuffer}
-- {type: "progress", name: "encrypt|decrypt|encode|decode", progress: percent}
-- {type: "error", name: "encrypt|decrypt|encode|decode", msg: message}
+- {type: "decrypt", name: "file.ext", buffer: ArrayBuffer}
+- {type: "progress", name: "encrypt | decrypt | encode | decode", progress: percent}
+- {type: "error", name: "encrypt | decrypt | encode | decode", msg: message}
 ```
 
 DarkJPEG file format:
 ```
-- container: [ JPEG <+> encoded data ] or [ JPEG ][ encoded data ];
-- encoded:   [ 16-bit encryption salt ][ AES256 encrypted data ][ 0xFFD9 ];
-- encrypted: [ 0x3141593 ][ 32-bit file size ][ 16-bit file name length ][ UTF-16 file name ][ DATA ][ zero padding ].
+- container: [ JPEG <+> encoded data ] or [ JPEG ][ encoded data ]
+- encoded:   [ 16-bit encryption salt ][ AES256 encrypted data ][ 0xFFD9 ]
+- encrypted: [ 0x3141593 ][ 32-bit file size ][ 16-bit file name length ][ UTF-16 file name ][ DATA ][ zero padding ]
 ```
 
 ### See also
