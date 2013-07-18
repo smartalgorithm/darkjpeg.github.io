@@ -292,9 +292,10 @@ controlInit = (cb) ->
                 global.fileJpeg ?= global.optJpeg
                 $('#control').remove(); global.prvData = null
                 $('input').css('width', 410).css('padding-left', 10)
-                controlInput 'text'; global.prvJpeg = null
-                $('input').prop('disabled', true)
-                cb $('<div>').prop('id', 'progress').appendTo('form')
+                controlInput 'password'; global.prvJpeg = null
+                $('input').prop('disabled', true);
+                $('<div>').prop('id', 'progress').appendTo('form')
+                cb $('form').off('submit').submit (e) -> eventVoid e;
         global.optAction = localStorage.getItem('action') ? 'encode'
         global.optAction = 'decode' if not global.fileData
         global.optData = global.fileData && 'file' || 'url'
@@ -328,15 +329,18 @@ controlProgress = (dict) ->
 
 controlProcess = ->
     done = (image, blob) ->
-        str = blob.name + '<br>' + ((blob.size >> 10) + 1) + ' Kb'
-        $('<figure>').append(image).append($('<figcaption>').html(str))
-            .click(-> dataURLSave url, blob.name).css(opacity: 0)
-            .animate(opacity: 1, 400).appendTo('section')
+        str = blob.name + '<br><span dir="ltr">' +
+            ((blob.size >> 10) + 1) + ' Kb</span>'
+        $('<figure>').append(image).appendTo('section')
+            .append($('<figcaption>').html(str)
+            .css('max-width', $(image).width() - 6))
+            .click(-> dataURLSave url, blob.name)
+            .css(opacity: 0).animate(opacity: 1, 400)
     error = (url) ->
         err = trace(url, true)?.error ? 'Some error occured'
         $('h3').stop().css('opacity', 1).html("Oops! #{err} :(")
         document.onclick = -> controlInit controlProcess
-    safari = /^(?!.*Chrom).*Safari.*$/.test navigator.userAgent
+    safari = /^(?!.*Chrome).*Safari.*$/.test navigator.userAgent
     dict = action: global.optAction, pass: global.optPass, \
            method: global.optMethod, safe: global.optSafe
     dict.data = global.fileData if global.optAction == 'decode'
